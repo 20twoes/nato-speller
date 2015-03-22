@@ -1,3 +1,4 @@
+// vim: tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 /*!
  *
  *  Web Starter Kit
@@ -16,6 +17,8 @@
  *  limitations under the License
  *
  */
+var React = require('react');
+
 (function () {
   'use strict';
 
@@ -47,4 +50,16 @@
       closeMenu();
     }
   });
+
+  var HelloMessage = React.createClass({
+    render: function() {
+      return <div>Hello {this.props.name}</div>;
+    }
+  });
+
+  React.renderComponent(
+    <helloMessge name="Al" />,
+    body
+  );
+
 })();
