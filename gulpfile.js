@@ -156,7 +156,7 @@ gulp.task('serve', ['styles', 'browserify'], function () {
 
   gulp.watch(['app/**/*.html'], reload);
   gulp.watch(['app/styles/**/*.{scss,css}'], ['styles', reload]);
-  gulp.watch(['app/scripts/**/*.js'], ['jshint', 'browserify', reload]);
+  gulp.watch(['app/scripts/src/**/*.{js,jsx}'], ['browserify', reload]);
   gulp.watch(['app/images/**/*'], reload);
 });
 
@@ -174,7 +174,7 @@ gulp.task('serve:dist', ['default'], function () {
 
 // Build Production Files, the Default Task
 gulp.task('default', ['clean'], function (cb) {
-  runSequence('styles', ['jshint', 'browserify', 'html', 'images', 'fonts', 'copy'], cb);
+  runSequence('styles', ['browserify', 'html', 'images', 'fonts', 'copy'], cb);
 });
 
 // Run PageSpeed Insights
@@ -188,14 +188,13 @@ gulp.task('pagespeed', pagespeed.bind(null, {
   strategy: 'mobile'
 }));
 
-// Run Browserify and Reactify
+// Run Browserify
 gulp.task('browserify', function() {
-  // TODO: Run vanilla browserify in addition to reactify
-  browserify('./app/scripts/main.js')
+  browserify('./app/scripts/src/main.js')
 	.transform(reactify)
 	.bundle()
 	.pipe(source('bundle.js'))
-	.pipe(gulp.dest('./app/scripts/'));
+	.pipe(gulp.dest('./app/scripts/build/'));
 });
 
 // Load custom tasks from the `tasks` directory

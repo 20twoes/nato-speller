@@ -17,7 +17,6 @@
  *  limitations under the License
  *
  */
-var React = require('react');
 
 (function () {
   'use strict';
@@ -51,15 +50,7 @@ var React = require('react');
     }
   });
 
-  var HelloMessage = React.createClass({
-    render: function() {
-      return <div>Hello {this.props.name}</div>;
-    }
-  });
-
-  React.renderComponent(
-    <helloMessge name="Al" />,
-    body
-  );
+  var reactExample = require('./react-example.jsx');
+  reactExample.render();
 
 })();
