@@ -45,7 +45,7 @@ var AUTOPREFIXER_BROWSERS = [
 
 // Lint JavaScript
 gulp.task('jshint', function () {
-  return gulp.src('app/scripts/**/*.js')
+  return gulp.src('app/scripts/src/**/*.js')
     .pipe(reload({stream: true, once: true}))
     .pipe($.jshint())
     .pipe($.jshint.reporter('jshint-stylish'))
@@ -156,7 +156,7 @@ gulp.task('serve', ['styles', 'browserify'], function () {
 
   gulp.watch(['app/**/*.html'], reload);
   gulp.watch(['app/styles/**/*.{scss,css}'], ['styles', reload]);
-  gulp.watch(['app/scripts/src/**/*.{js,jsx}'], ['browserify', reload]);
+  gulp.watch(['app/scripts/src/**/*.js'], ['jshint', 'browserify']);
   gulp.watch(['app/images/**/*'], reload);
 });
 
@@ -174,7 +174,7 @@ gulp.task('serve:dist', ['default'], function () {
 
 // Build Production Files, the Default Task
 gulp.task('default', ['clean'], function (cb) {
-  runSequence('styles', ['browserify', 'html', 'images', 'fonts', 'copy'], cb);
+  runSequence('styles', ['jshint', 'browserify', 'html', 'images', 'fonts', 'copy'], cb);
 });
 
 // Run PageSpeed Insights
