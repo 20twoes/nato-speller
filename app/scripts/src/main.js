@@ -50,7 +50,7 @@
     }
   });
 
-  var reactExample = require('./react-example.jsx');
-  reactExample.render();
+  var speller = require('./nato-speller.jsx');
+  speller.render();
 
 })();
