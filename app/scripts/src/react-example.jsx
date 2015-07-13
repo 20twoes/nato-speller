@@ -7,6 +7,45 @@ function render () {
   var React = require('react');
   var mobservable = require('mobservable');
 
+  var alphabet = {
+    a: 'alfa',
+    b: 'bravo',
+    c: 'charlie',
+    d: 'delta',
+    e: 'echo',
+    f: 'foxtrot',
+    g: 'golf',
+    h: 'hotel',
+    i: 'india',
+    j: 'juliett',
+    k: 'kilo',
+    l: 'lima',
+    m: 'mike',
+    n: 'november',
+    o: 'oscar',
+    p: 'papa',
+    q: 'quebec',
+    r: 'romeo',
+    s: 'sierra',
+    t: 'tango',
+    u: 'uniform',
+    v: 'victor',
+    w: 'whiskey',
+    x: 'xray',
+    y: 'yankee',
+    z: 'zulu',
+    1: 'one',
+    2: 'two',
+    3: 'three',
+    4: 'four',
+    5: 'five',
+    6: 'six',
+    7: 'seven',
+    8: 'eight',
+    9: 'nine',
+    0: 'zero'
+  };
+
   function InputData(input) {
     mobservable.props(this, {
       input: input
@@ -16,19 +55,42 @@ function render () {
   var InputView = React.createClass({
     mixins: [mobservable.ObserverMixin],
 
-    render: function() {
-      return <input type="text" onChange={this.update} value={this.props.input.input} />;
+    update: function() {
+      this.props.input.input = this.getDOMNode().value;
+      console.log(this.props.input.input);
     },
 
-    update: function() {
-      // How do we make the input field changeable?
-      console.log(this.props.input.input);
+    render: function() {
+      return <input type="text" onChange={this.update} value={this.props.input.input} />;
     }
   });
 
+  var SpellerView = React.createClass({
+    mixins: [mobservable.ObserverMixin],
+
+    render: function() {
+      return (
+        <ul>
+          {this.props.input.input.split('').map(function(ch) {
+            if (ch === ' ') {
+              return <li>&nbsp;</li>;
+            }
+            return <li>{alphabet[ch]}</li>;
+          })}
+        </ul>
+      );
+    }
+  });
+
+  var data = new InputData('');
+
   React.render(
-    <InputView input={new InputData('testal')} />,
+    <InputView input={data} />,
     document.getElementById('nato-input-container')
+  );
+  React.render(
+    <SpellerView input={data} />,
+    document.getElementById('nato-speller-container')
   );
 }
 
