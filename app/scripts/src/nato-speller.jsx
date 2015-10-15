@@ -57,7 +57,6 @@ function render () {
 
     update: function() {
       this.props.input.input = this.getDOMNode().value;
-      console.log(this.props.input.input);
     },
 
     render: function() {
