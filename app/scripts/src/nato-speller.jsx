@@ -70,12 +70,12 @@ function render () {
 
     render: function() {
       return (
-        <ul>
+        <ul className="list-links list-links--secondary">
           {this.props.input.input.split('').map(function(ch) {
             if (ch === ' ') {
               return <li>&nbsp;</li>;
             }
-            return <li>{alphabet[ch]}</li>;
+            return <li><span className="xlarge">{alphabet[ch][0]}</span>{alphabet[ch].substr(1)}</li>;
           })}
         </ul>
       );
